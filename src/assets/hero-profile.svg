@@ -1,0 +1,22 @@
+<svg width="720" height="720" viewBox="0 0 720 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="110" y1="88" x2="616" y2="672" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4F46E5"/>
+      <stop offset="1" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="shirtGradient" x1="360" y1="380" x2="360" y2="620" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1F2937"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="60" y="60" width="600" height="600" rx="160" fill="url(#bgGradient)"/>
+  <circle cx="360" cy="280" r="120" fill="#F4D6C1"/>
+  <path d="M250 255C250 191.487 301.487 140 365 140C428.513 140 480 191.487 480 255V270H250V255Z" fill="#111827"/>
+  <path d="M185 585C185 473.439 275.439 383 387 383H393C504.561 383 595 473.439 595 585V660H185V585Z" fill="url(#shirtGradient)"/>
+  <circle cx="316" cy="278" r="10" fill="#111827"/>
+  <circle cx="403" cy="278" r="10" fill="#111827"/>
+  <path d="M314 332C328 348 356 359 386 352C406 347 422 336 430 320" stroke="#6B3F2C" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="595" cy="155" r="46" fill="#F8FAFC" fill-opacity="0.35"/>
+  <circle cx="122" cy="210" r="30" fill="#F8FAFC" fill-opacity="0.28"/>
+</svg>
