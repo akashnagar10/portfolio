@@ -42,12 +42,12 @@ const Contact = () => {
       value: 'akashdev1006@gmail.com',
       link: 'mailto:akashdev1006@gmail.com'
     },
-    {
-      icon: 'fas fa-phone',
-      label: 'Phone',
-      value: '+91 76978 56749',
-      link: 'tel:+91769785674'
-    },
+    // {
+    //   icon: 'fas fa-phone',
+    //   label: 'Phone',
+    //   value: '',
+    //   link: ''
+    // },
     {
       icon: 'fas fa-map-marker-alt',
       label: 'Location',
