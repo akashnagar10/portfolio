@@ -82,6 +82,42 @@ Update the social media links in:
 - `src/components/Contact.js`
 - `src/components/Footer.js`
 
+### Save Contact Form Data To Google Sheets
+
+1. Create a Google Sheet and name the first tab `Sheet1`.
+2. Add this header row in `Sheet1`: `Timestamp | Name | Email | Phone | Message`.
+3. Open `Extensions` -> `Apps Script`.
+4. Replace code in `Code.gs` with:
+
+```javascript
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
+  const data = JSON.parse(e.postData.contents);
+
+  sheet.appendRow([
+    data.submittedAt || new Date().toISOString(),
+    data.name || '',
+    data.email || '',
+    data.phone || '',
+    data.message || ''
+  ]);
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ success: true }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+```
+
+5. Deploy script: `Deploy` -> `New deployment` -> type `Web app`.
+6. Set `Who has access` to `Anyone`, then deploy and copy the Web App URL.
+7. Create a local `.env` file from `.env.example` and set:
+
+```bash
+REACT_APP_GOOGLE_SHEET_WEBHOOK_URL=YOUR_WEB_APP_URL
+```
+
+8. Restart the React server (`npm start`) after updating `.env`.
+
 ## Project Structure
 
 ```

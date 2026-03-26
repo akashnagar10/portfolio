@@ -183,6 +183,22 @@
   font-size: 1.25rem;
 }
 
+.form-error {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+.form-error i {
+  font-size: 1.25rem;
+}
+
 @media (max-width: 968px) {
   .contact-container {
     grid-template-columns: 1fr;

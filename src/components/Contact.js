@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import './Contact.css';
 
 const Contact = () => {
+  const SHEET_WEBHOOK_URL = process.env.REACT_APP_GOOGLE_SHEET_WEBHOOK_URL;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     message: ''
   });
 
@@ -23,16 +26,34 @@ const Contact = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+    try {
+      if (!SHEET_WEBHOOK_URL) {
+        throw new Error('Google Sheet webhook URL is not configured.');
+      }
 
-      setTimeout(() => {
-        setSubmitStatus(null);
-      }, 3000);
-    }, 1000);
+      await fetch(SHEET_WEBHOOK_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify({
+          ...formData,
+          submittedAt: new Date().toISOString()
+        })
+      });
+
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', phone: '', message: '' });
+    } catch {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+
+    setTimeout(() => {
+      setSubmitStatus(null);
+    }, 3000);
   };
 
   const contactInfo = [
@@ -136,6 +157,21 @@ const Contact = () => {
           </div>
 
           <div className="form-group">
+            <label htmlFor="phone">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+              inputMode="numeric"
+              pattern="[0-9]{10,15}"
+              placeholder="9876543210"
+            />
+          </div>
+
+          <div className="form-group">
             <label htmlFor="message">Message</label>
             <textarea
               id="message"
@@ -168,6 +204,13 @@ const Contact = () => {
             <div className="form-success">
               <i className="fas fa-check-circle"></i>
               Thank you! Your message has been sent successfully.
+            </div>
+          )}
+
+          {submitStatus === 'error' && (
+            <div className="form-error">
+              <i className="fas fa-exclamation-circle"></i>
+              Something went wrong. Please try again.
             </div>
           )}
         </form>
